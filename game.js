@@ -4,15 +4,15 @@ var buttonColours = ["blue", "purple", "green", "cream"];
 var gamePattern = [];
 var userPattern = [];
 
-var started = false;
+var gameStarted = false;
 var level = 0;
 
 //key level control:
 $(document).keydown(function() {
-  if (!started) {
+  if (!gameStarted) {
     $("#level-title").text("Level " + level);
     nextSequence();
-    started = true;
+    gameStarted = true;
   }
 });
 
@@ -23,6 +23,8 @@ $(".btn").click(function(){
 
   playSound(userChosenColour);
   animatePress(userChosenColour);
+
+  checkAnswer(userPattern.length - 1);
 });
 
 //functions:
@@ -49,4 +51,13 @@ function animatePress(currentColour) {
   setTimeout(function() {
     $("#" + currentColour).removeClass("pressed");
   }, 200);
+}
+
+function checkAnswer(currentLevel) {
+  if (userPattern[currentLevel] === gamePattern[currentLevel]) {
+     console.log("success");
+  }
+  else {
+    console.log("wrong")
+  }
 }
