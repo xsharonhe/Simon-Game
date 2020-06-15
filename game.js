@@ -4,24 +4,38 @@ var buttonColours = ["blue", "purple", "green", "cream"];
 var gamePattern = [];
 var userPattern = [];
 
+var started = false;
+var level = 0;
+
+//key level control:
+$(document).keydown(function() {
+  if (!started) {
+    $("#level-title").text("Level " + level);
+    nextSequence();
+    started = true;
+  }
+});
+
+//buttonclick
 $(".btn").click(function(){
   var userChosenColour = $(this).attr("id");
-
   userPattern.push(userChosenColour);
 
   playSound(userChosenColour);
-
   animatePress(userChosenColour);
 });
 
+//functions:
 function nextSequence() {
-  var randomNum = Math.floor(Math.random()*4);
+  level++;
+  $("#level-title").text("Level " + level);
+  var randomNum = Math.floor(Math.random() * 4);
 
   var randomColour = buttonColours[randomNum];
-
   gamePattern.push(randomColour);
 
-  $("#" + randomColour).fadeIn(100),fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(Out);
+  $("#" + randomColour).fadeIn(100).fadeOut(100).fadeIn(100);
+  playSound(randomColour);
 }
 
 function playSound(name) {
